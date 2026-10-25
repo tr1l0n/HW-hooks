@@ -6,6 +6,8 @@ import { Notification } from './components/feedback/Notification';
 import { ContactForm } from './components/Contacts/ContactForm';
 import { ContactList } from './components/Contacts/ContactList';
 import { Filter } from './components/Contacts/Filter';
+import { Clock } from './components/Clock/Clock';
+import { Login } from './components/Login/Login';
 function App() {
   const [state, setState] = useState({
     good: 0,
@@ -84,6 +86,12 @@ function App() {
         <h2>Contacts</h2>
         <Filter onFilter={handleFilter} filter={filter} />
         <ContactList contacts={filteredContacts} onDelete={onDelete}/>
+      </Section>
+      <Section title="Clock">
+        <Clock/>
+      </Section>
+      <Section title="Context">
+        <Login/>
       </Section>
     </div>
   );
