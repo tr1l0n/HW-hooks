@@ -7,10 +7,10 @@ export function Clock() {
         intervalId.current = setInterval(() => {
             setTime(new Date().toLocaleTimeString())
         })
-        return (() => {
+        return () => {
             stop();
-        })
-    }, [intervalId]);
+        }
+    }, []);
     const stop = () => {
         clearInterval(intervalId.current);
     }
