@@ -3,7 +3,7 @@ import loginContext from "../Context/context";
 export function Login() {
   const context = useContext(loginContext);
   const { user, isLoggedIn, LogIn, LogOut } = context;
-    console.log(user);
+
     
   return (
     <section>

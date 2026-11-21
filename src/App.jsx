@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import {Section} from './components/feedback/Section'
 import { FeedbackOption } from './components/feedback/FeedbackOption';
 import { Statistics } from './components/feedback/Statistics';
@@ -8,11 +8,32 @@ import { ContactList } from './components/Contacts/ContactList';
 import { Filter } from './components/Contacts/Filter';
 import { Clock } from './components/Clock/Clock';
 import { Login } from './components/Login/Login';
+const feedbackReducer = (state, action) => {
+  switch (action.type) {
+    case "good":
+      return {
+        ...state,
+        good: state.good + action.payload
+      }
+    case "neutral":
+      return {
+        ...state,
+        neutral: state.neutral + action.payload,
+      };
+    case "bad":
+      return {
+        ...state,
+        bad: state.bad + action.payload,
+      };
+    default: 
+      throw new Error("Error")
+  }
+}
 function App() {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(feedbackReducer, {
     good: 0,
     neutral: 0,
-    bad: 0,
+    bad:0
   })
   const [filter, setFilter] = useState("");
   const [contacts, setContacts] = useState(() =>JSON.parse(localStorage.getItem('contacts'))?? [
@@ -27,13 +48,13 @@ function App() {
   const onLeaveFeedback = value => {
     switch (value) {
       case "good":
-        setState((prev) => ({ ...prev, good: prev.good + 1 }));
+        dispatch({ type:"good",payload:1})
         return;
       case "neutral":
-        setState((prev) => ({ ...prev, neutral: prev.neutral + 1 }));
+        dispatch({ type: "neutral", payload: 1 });
         return;
       case "bad":
-        setState((prev) => ({ ...prev, bad: prev.bad + 1 }));
+        dispatch({ type: "bad", payload: 1 });
         return;
       default:
         return;
